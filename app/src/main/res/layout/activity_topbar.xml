@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topbar"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:background="@mipmap/topbar_bg">
+
+    <ImageButton
+        android:id="@+id/ibtn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:onClick="backClick"
+        android:paddingTop="16dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:src="@mipmap/icon_back" />
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:drawableLeft="@mipmap/icon_back"
+        android:drawablePadding="10dp"
+        android:onClick="backClick"
+        android:padding="10dp"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:ellipsize="end"
+        android:paddingTop="16dp"
+        android:maxEms="10"
+        android:maxLines="1"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+
+    <ImageButton
+        android:id="@+id/ibtn_spare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingTop="16dp"
+        android:background="@null"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

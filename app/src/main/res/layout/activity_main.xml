@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical"
+    tools:context="com.whfp.anti_terrorism.activity.MainActivity">
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        app:image_scale_type="fit_xy"
+        app:indicator_height="8dp"
+        app:indicator_margin="5dp"
+        app:indicator_width="8dp" />
+
+
+    <GridView
+        android:id="@+id/gv_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:layout_weight="5"
+        android:cacheColorHint="#00000000"
+        android:columnWidth="110dp"
+        android:fadingEdge="none"
+        android:horizontalSpacing="3dp"
+        android:listSelector="#00000000"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="3dp" />
+
+</LinearLayout>

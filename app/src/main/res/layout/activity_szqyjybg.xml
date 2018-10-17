@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_topbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:layout_marginTop="14dp"
+                android:drawableLeft="@mipmap/icon_text_left"
+                android:drawablePadding="15dp"
+                android:text="派出所证明"
+                android:textColor="@color/text_black"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/dotted_border">
+
+                <ImageView
+                    android:id="@+id/iv_pcszm"
+                    android:layout_width="200dp"
+                    android:layout_height="140dp"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/add_photo_plus"
+                    android:padding="4dp"
+                    android:scaleType="fitXY" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:layout_marginTop="14dp"
+                android:drawableLeft="@mipmap/icon_text_left"
+                android:drawablePadding="15dp"
+                android:text="身份证正面"
+                android:textColor="@color/text_black"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/dotted_border">
+
+                <ImageView
+                    android:id="@+id/iv_id_card_z"
+                    android:layout_width="200dp"
+                    android:layout_height="140dp"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/add_photo_plus"
+                    android:padding="4dp"
+                    android:scaleType="fitXY" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:layout_marginTop="14dp"
+                android:drawableLeft="@mipmap/icon_text_left"
+                android:drawablePadding="15dp"
+                android:text="身份证反面"
+                android:textColor="@color/text_black"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/dotted_border">
+
+                <ImageView
+                    android:id="@+id/iv_id_card_f"
+                    android:layout_width="200dp"
+                    android:layout_height="140dp"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/add_photo_plus"
+                    android:padding="4dp"
+                    android:scaleType="fitXY" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:layout_marginTop="14dp"
+                android:drawableLeft="@mipmap/icon_text_left"
+                android:drawablePadding="15dp"
+                android:text="现场照片（最多6张）"
+                android:textColor="@color/text_black"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/dotted_border"
+                android:descendantFocusability="blocksDescendants"
+                android:padding="3dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_image_site"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:layout_marginTop="14dp"
+                android:drawableLeft="@mipmap/icon_text_left"
+                android:drawablePadding="15dp"
+                android:text="加油信息描述"
+                android:textColor="@color/text_black"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:text="加油量"
+                    android:textColor="@color/text_black"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/et_jyl"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/rectangular_border_gary"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:maxLength="4"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="L"
+                    android:textColor="@color/text_black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                android:text="加油用途"
+                android:textColor="@color/text_black"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/et_jyyt"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/rectangular_border_gary"
+                android:gravity="top|left"
+                android:hint="请输入加油用途，最多150字"
+                android:maxLength="150"
+                android:padding="3dp"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/btn_submit"
+                style="@style/btn_style"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="40dp"
+                android:text="上报" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_topbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--消防情况-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="14dp"
+                android:paddingTop="14dp">
+
+                <View style="@style/block_view" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="消防情况"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View style="@style/gray_line" />
+
+            <EditText
+                android:id="@+id/et_desc_xf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="top|left"
+                android:hint="请输入"
+                android:minLines="6"
+                android:padding="10dp"
+                android:textColor="@color/text_s_gary"
+                android:textSize="14sp" />
+
+            <View style="@style/gray_line" />
+
+
+            <!--技防情况-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="14dp"
+                android:paddingTop="14dp">
+
+                <View style="@style/block_view" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="技防情况"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View style="@style/gray_line" />
+
+            <EditText
+                android:id="@+id/et_desc_jf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="top|left"
+                android:hint="请输入"
+                android:minLines="6"
+                android:padding="10dp"
+                android:textColor="@color/text_s_gary"
+                android:textSize="14sp" />
+
+            <View style="@style/gray_line" />
+
+
+            <!--人防情况-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="14dp"
+                android:paddingTop="14dp">
+
+                <View style="@style/block_view" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="人防情况"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View style="@style/gray_line" />
+
+
+            <EditText
+                android:id="@+id/et_desc_rf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="top|left"
+                android:hint="请输入"
+                android:minLines="6"
+                android:padding="10dp"
+                android:textColor="@color/text_s_gary"
+                android:textSize="14sp" />
+
+            <View style="@style/gray_line" />
+
+            <Button
+                android:id="@+id/btn_submit"
+                style="@style/btn_style"
+                android:layout_marginTop="40dp"
+                android:text="上报" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--此布局为纯列表界面的Activity通用布局，没有下拉刷新上拉加载功能（带标题栏）-->
+    <include layout="@layout/activity_topbar" />
+    <include layout="@layout/recycler_universal" />
+</LinearLayout>
