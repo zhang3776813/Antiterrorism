@@ -15,7 +15,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 /**
- * 安全防范情况上报
+ * 安全防范情况上报 测试
  * Created by wantao on 2018/6/14.
  */
 @ContentView(R.layout.activity_aqffsb)
