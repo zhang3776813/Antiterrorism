@@ -15,6 +15,7 @@ import com.pili.pldroid.player.widget.PLVideoView;
 import com.vondear.rxtools.RxLogTool;
 import com.whfp.anti_terrorism.R;
 import com.whfp.anti_terrorism.basic.BasicActivity;
+import com.whfp.anti_terrorism.bean.Constants;
 import com.whfp.anti_terrorism.utils.MediaController;
 import com.whfp.anti_terrorism.utils.StatusBarUtils;
 
@@ -32,7 +33,8 @@ public class MonitorActivity extends BasicActivity implements PLOnPreparedListen
     @ViewInject(R.id.PLVideoTextureView)
     private PLVideoTextureView PLVideoTextureView;
 
-    private String PATH_URL = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+//    private String PATH_URL = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8";
+      private String PATH_URL = "http://103.233.191.135:1935/ch5/info_ch5.live/playlist.m3u8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class MonitorActivity extends BasicActivity implements PLOnPreparedListen
     protected void init() {
         super.init();
         setTitleText("实时监控");
+
+        PATH_URL = getIntent().getStringExtra(Constants.HK_HLS);
         initVideoView();
     }
 

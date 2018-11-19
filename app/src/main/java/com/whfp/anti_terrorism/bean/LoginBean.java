@@ -1,7 +1,5 @@
 package com.whfp.anti_terrorism.bean;
 
-import java.util.List;
-
 /**
  * Created by 张明杨 on 2018-05-03-0003.
  */
@@ -10,21 +8,23 @@ public class LoginBean {
 
 
     /**
-     * data : {"userInfo":{"area":"402881ec3f74d2d5013f74dc42ac1c66","deptId":"40288101632013c801632412816c0000","errorCount":0,"factoryName":"武汉丰普科技有限公司","id":"40288101632013c80163241281aa0001","idCard":"420525199308130834","lastLoginIp":"192.168.18.153","lastLoginTime":1525328090776,"mobilePhoneNumber":"17671462708","registerTime":1525318582000,"registerUid":"402881f73e1c4ba4013e1c4c08470001","trueName":"张明杨","userName":"zhang3776813","userPassword":"7G130917AF30BE5E203D7157AF0AACGA","userSex":1,"userStatus":1},"userRoles":["serviceAgent"]}
-     * message : 请求成功！
-     * statusCode : 300
+     * dept : {"deptAddress":"","deptDesc":"","deptFax":"","deptName":"武汉丰普科技有限公司","deptPhone":"","deptSort":1,"id":"297ef8ea5aa66c88015aa67bac930003","leadUid":"","superId":"0"}
+     * message : 登录成功
+     * statusCode : 200
+     * user : {"deptId":"297ef8ea5aa66c88015aa67bac930003","errorCount":0,"id":"402881f73e1c4ba4013e1c4c08470001","lastLoginIp":"127.0.0.1","lastLoginTime":1540193937132,"mobilePhoneNumber":"18615200092","orgId":"402881f73e1c5181013e1c56da3c0002","registerTime":1366274344000,"registerUid":"0","trueName":"超级管理员","type":"0","userDesc":"拥有系统最高权限!","userName":"fpadmin","userPassword":"H1AF2G39C90F59F00H5DHA574BA4EE3H","userSex":1,"userStatus":1}
      */
 
-    private DataBean data;
+    private DeptBean dept;
     private String message;
-    private String statusCode;
+    private int statusCode;
+    private UserBean user;
 
-    public DataBean getData() {
-        return data;
+    public DeptBean getDept() {
+        return dept;
     }
 
-    public void setData(DataBean data) {
-        this.data = data;
+    public void setDept(DeptBean dept) {
+        this.dept = dept;
     }
 
     public String getMessage() {
@@ -35,203 +35,281 @@ public class LoginBean {
         this.message = message;
     }
 
-    public String getStatusCode() {
+    public int getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(String statusCode) {
+    public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 
-    public static class DataBean {
+    public UserBean getUser() {
+        return user;
+    }
+
+    public void setUser(UserBean user) {
+        this.user = user;
+    }
+
+    public static class DeptBean {
         /**
-         * userInfo : {"area":"402881ec3f74d2d5013f74dc42ac1c66","deptId":"40288101632013c801632412816c0000","errorCount":0,"factoryName":"武汉丰普科技有限公司","id":"40288101632013c80163241281aa0001","idCard":"420525199308130834","lastLoginIp":"192.168.18.153","lastLoginTime":1525328090776,"mobilePhoneNumber":"17671462708","registerTime":1525318582000,"registerUid":"402881f73e1c4ba4013e1c4c08470001","trueName":"张明杨","userName":"zhang3776813","userPassword":"7G130917AF30BE5E203D7157AF0AACGA","userSex":1,"userStatus":1}
-         * userRoles : ["serviceAgent"]
+         * deptAddress :
+         * deptDesc :
+         * deptFax :
+         * deptName : 武汉丰普科技有限公司
+         * deptPhone :
+         * deptSort : 1
+         * id : 297ef8ea5aa66c88015aa67bac930003
+         * leadUid :
+         * superId : 0
          */
 
-        private UserInfoBean userInfo;
-        private List<String> userRoles;
+        private String deptAddress;
+        private String deptDesc;
+        private String deptFax;
+        private String deptName;
+        private String deptPhone;
+        private int deptSort;
+        private String id;
+        private String leadUid;
+        private String superId;
 
-        public UserInfoBean getUserInfo() {
-            return userInfo;
+        public String getDeptAddress() {
+            return deptAddress;
         }
 
-        public void setUserInfo(UserInfoBean userInfo) {
-            this.userInfo = userInfo;
+        public void setDeptAddress(String deptAddress) {
+            this.deptAddress = deptAddress;
         }
 
-        public List<String> getUserRoles() {
-            return userRoles;
+        public String getDeptDesc() {
+            return deptDesc;
         }
 
-        public void setUserRoles(List<String> userRoles) {
-            this.userRoles = userRoles;
+        public void setDeptDesc(String deptDesc) {
+            this.deptDesc = deptDesc;
         }
 
-        public static class UserInfoBean {
-            /**
-             * area : 402881ec3f74d2d5013f74dc42ac1c66
-             * deptId : 40288101632013c801632412816c0000
-             * errorCount : 0
-             * factoryName : 武汉丰普科技有限公司
-             * id : 40288101632013c80163241281aa0001
-             * idCard : 420525199308130834
-             * lastLoginIp : 192.168.18.153
-             * lastLoginTime : 1525328090776
-             * mobilePhoneNumber : 17671462708
-             * registerTime : 1525318582000
-             * registerUid : 402881f73e1c4ba4013e1c4c08470001
-             * trueName : 张明杨
-             * userName : zhang3776813
-             * userPassword : 7G130917AF30BE5E203D7157AF0AACGA
-             * userSex : 1
-             * userStatus : 1
-             */
+        public String getDeptFax() {
+            return deptFax;
+        }
 
-            private String area;
-            private String deptId;
-            private int errorCount;
-            private String factoryName;
-            private String id;
-            private String idCard;
-            private String lastLoginIp;
-            private long lastLoginTime;
-            private String mobilePhoneNumber;
-            private long registerTime;
-            private String registerUid;
-            private String trueName;
-            private String userName;
-            private String userPassword;
-            private int userSex;
-            private int userStatus;
+        public void setDeptFax(String deptFax) {
+            this.deptFax = deptFax;
+        }
 
-            public String getArea() {
-                return area;
-            }
+        public String getDeptName() {
+            return deptName;
+        }
 
-            public void setArea(String area) {
-                this.area = area;
-            }
+        public void setDeptName(String deptName) {
+            this.deptName = deptName;
+        }
 
-            public String getDeptId() {
-                return deptId;
-            }
+        public String getDeptPhone() {
+            return deptPhone;
+        }
 
-            public void setDeptId(String deptId) {
-                this.deptId = deptId;
-            }
+        public void setDeptPhone(String deptPhone) {
+            this.deptPhone = deptPhone;
+        }
 
-            public int getErrorCount() {
-                return errorCount;
-            }
+        public int getDeptSort() {
+            return deptSort;
+        }
 
-            public void setErrorCount(int errorCount) {
-                this.errorCount = errorCount;
-            }
+        public void setDeptSort(int deptSort) {
+            this.deptSort = deptSort;
+        }
 
-            public String getFactoryName() {
-                return factoryName;
-            }
+        public String getId() {
+            return id;
+        }
 
-            public void setFactoryName(String factoryName) {
-                this.factoryName = factoryName;
-            }
+        public void setId(String id) {
+            this.id = id;
+        }
 
-            public String getId() {
-                return id;
-            }
+        public String getLeadUid() {
+            return leadUid;
+        }
 
-            public void setId(String id) {
-                this.id = id;
-            }
+        public void setLeadUid(String leadUid) {
+            this.leadUid = leadUid;
+        }
 
-            public String getIdCard() {
-                return idCard;
-            }
+        public String getSuperId() {
+            return superId;
+        }
 
-            public void setIdCard(String idCard) {
-                this.idCard = idCard;
-            }
+        public void setSuperId(String superId) {
+            this.superId = superId;
+        }
+    }
 
-            public String getLastLoginIp() {
-                return lastLoginIp;
-            }
+    public static class UserBean {
+        /**
+         * deptId : 297ef8ea5aa66c88015aa67bac930003
+         * errorCount : 0
+         * id : 402881f73e1c4ba4013e1c4c08470001
+         * lastLoginIp : 127.0.0.1
+         * lastLoginTime : 1540193937132
+         * mobilePhoneNumber : 18615200092
+         * orgId : 402881f73e1c5181013e1c56da3c0002
+         * registerTime : 1366274344000
+         * registerUid : 0
+         * trueName : 超级管理员
+         * type : 0
+         * userDesc : 拥有系统最高权限!
+         * userName : fpadmin
+         * userPassword : H1AF2G39C90F59F00H5DHA574BA4EE3H
+         * userSex : 1
+         * userStatus : 1
+         */
 
-            public void setLastLoginIp(String lastLoginIp) {
-                this.lastLoginIp = lastLoginIp;
-            }
+        private String deptId;
+        private int errorCount;
+        private String id;
+        private String lastLoginIp;
+        private long lastLoginTime;
+        private String mobilePhoneNumber;
+        private String orgId;
+        private long registerTime;
+        private String registerUid;
+        private String trueName;
+        private String type;
+        private String userDesc;
+        private String userName;
+        private String userPassword;
+        private int userSex;
+        private int userStatus;
 
-            public long getLastLoginTime() {
-                return lastLoginTime;
-            }
+        public String getDeptId() {
+            return deptId;
+        }
 
-            public void setLastLoginTime(long lastLoginTime) {
-                this.lastLoginTime = lastLoginTime;
-            }
+        public void setDeptId(String deptId) {
+            this.deptId = deptId;
+        }
 
-            public String getMobilePhoneNumber() {
-                return mobilePhoneNumber;
-            }
+        public int getErrorCount() {
+            return errorCount;
+        }
 
-            public void setMobilePhoneNumber(String mobilePhoneNumber) {
-                this.mobilePhoneNumber = mobilePhoneNumber;
-            }
+        public void setErrorCount(int errorCount) {
+            this.errorCount = errorCount;
+        }
 
-            public long getRegisterTime() {
-                return registerTime;
-            }
+        public String getId() {
+            return id;
+        }
 
-            public void setRegisterTime(long registerTime) {
-                this.registerTime = registerTime;
-            }
+        public void setId(String id) {
+            this.id = id;
+        }
 
-            public String getRegisterUid() {
-                return registerUid;
-            }
+        public String getLastLoginIp() {
+            return lastLoginIp;
+        }
 
-            public void setRegisterUid(String registerUid) {
-                this.registerUid = registerUid;
-            }
+        public void setLastLoginIp(String lastLoginIp) {
+            this.lastLoginIp = lastLoginIp;
+        }
 
-            public String getTrueName() {
-                return trueName;
-            }
+        public long getLastLoginTime() {
+            return lastLoginTime;
+        }
 
-            public void setTrueName(String trueName) {
-                this.trueName = trueName;
-            }
+        public void setLastLoginTime(long lastLoginTime) {
+            this.lastLoginTime = lastLoginTime;
+        }
 
-            public String getUserName() {
-                return userName;
-            }
+        public String getMobilePhoneNumber() {
+            return mobilePhoneNumber;
+        }
 
-            public void setUserName(String userName) {
-                this.userName = userName;
-            }
+        public void setMobilePhoneNumber(String mobilePhoneNumber) {
+            this.mobilePhoneNumber = mobilePhoneNumber;
+        }
 
-            public String getUserPassword() {
-                return userPassword;
-            }
+        public String getOrgId() {
+            return orgId;
+        }
 
-            public void setUserPassword(String userPassword) {
-                this.userPassword = userPassword;
-            }
+        public void setOrgId(String orgId) {
+            this.orgId = orgId;
+        }
 
-            public int getUserSex() {
-                return userSex;
-            }
+        public long getRegisterTime() {
+            return registerTime;
+        }
 
-            public void setUserSex(int userSex) {
-                this.userSex = userSex;
-            }
+        public void setRegisterTime(long registerTime) {
+            this.registerTime = registerTime;
+        }
 
-            public int getUserStatus() {
-                return userStatus;
-            }
+        public String getRegisterUid() {
+            return registerUid;
+        }
 
-            public void setUserStatus(int userStatus) {
-                this.userStatus = userStatus;
-            }
+        public void setRegisterUid(String registerUid) {
+            this.registerUid = registerUid;
+        }
+
+        public String getTrueName() {
+            return trueName;
+        }
+
+        public void setTrueName(String trueName) {
+            this.trueName = trueName;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getUserDesc() {
+            return userDesc;
+        }
+
+        public void setUserDesc(String userDesc) {
+            this.userDesc = userDesc;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getUserPassword() {
+            return userPassword;
+        }
+
+        public void setUserPassword(String userPassword) {
+            this.userPassword = userPassword;
+        }
+
+        public int getUserSex() {
+            return userSex;
+        }
+
+        public void setUserSex(int userSex) {
+            this.userSex = userSex;
+        }
+
+        public int getUserStatus() {
+            return userStatus;
+        }
+
+        public void setUserStatus(int userStatus) {
+            this.userStatus = userStatus;
         }
     }
 }

@@ -65,11 +65,11 @@ public abstract class BasicMultipleRecyclerRefreshFragment extends BaseFragment 
         linearLayoutManager = getLinearLayoutManager();
 
         if (rv_recycler == null) {
-            RxLogTool.e("BasicRecyclerRefreshFragment：列表控件为空，请检查子类是否传入");
+            RxLogTool.e("BasicRecyclerRefreshAndLoadMoreFragment：列表控件为空，请检查子类是否传入");
             return;
         }
         if (smartRefreshLayout == null) {
-            RxLogTool.e("BasicRecyclerRefreshFragment：刷新加载控件为空,请检查子类是否传入");
+            RxLogTool.e("BasicRecyclerRefreshAndLoadMoreFragment：刷新加载控件为空,请检查子类是否传入");
             return;
         }
 

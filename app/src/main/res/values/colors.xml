@@ -17,6 +17,11 @@
     <color name="btn_pressed_bg">#4D88A6</color><!--通用按钮按下的颜色-->
 
 
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorhalfwhite">#90BBBBBB</color>
+
+
     <!-- 其他颜色 -->
     <color name="color_f6">#f6f6f6</color>
     <color name="split_line_bootom_color">#ffa8adb3</color>

@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.vondear.rxtools.RxLogTool;
 import com.whfp.anti_terrorism.bean.Constants;
-import com.whfp.anti_terrorism.bean.UserInfoBean;
+import com.whfp.anti_terrorism.bean.LoginBean;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -202,18 +202,18 @@ public class PreferencesUtils {
      * 保存用户登录数据（json）
      *
      * @param context
-     * @param infoBean
+     * @param userBean
      */
-    public static void setUserInfo(Context context, UserInfoBean infoBean) {
+    public static void setUserInfo(Context context, LoginBean.UserBean userBean) {
 //        if (infoBean==null||infoBean.getUserRoles()==null){
 //            RxLogTool.e("清除用户数据");
-//            put(context, Constants.USER_INFO, jsonStr);
+//            put(context, DateConstants.USER_INFO, jsonStr);
 //        }
         try {
             Gson gson = new Gson();
             //list转换为json（string）
-            String jsonStr = gson.toJson(infoBean);
-            RxLogTool.e("保存的用户登录信息："+jsonStr);
+            String jsonStr = gson.toJson(userBean);
+            RxLogTool.e("保存的用户登录信息：" + jsonStr);
             put(context, Constants.USER_INFO, jsonStr);
         } catch (Exception e) {
             e.printStackTrace();
@@ -227,11 +227,11 @@ public class PreferencesUtils {
      * @param context
      * @return
      */
-    public static UserInfoBean getUserInfo(Context context) {
+    public static LoginBean.UserBean getUserInfo(Context context) {
         try {
             String json = (String) get(context, Constants.USER_INFO, "");
             if (json != null) {
-                UserInfoBean userInfoBean = new Gson().fromJson(json, UserInfoBean.class);
+                LoginBean.UserBean userInfoBean = new Gson().fromJson(json, LoginBean.UserBean.class);
                 if (userInfoBean == null) {
                     return null;
                 } else {
@@ -245,15 +245,6 @@ public class PreferencesUtils {
         return null;
     }
 
-    /**
-     * 获取用户角色ID
-     *
-     * @param context
-     * @return
-     */
-    public static String getRoleId(Context context) {
-        return getUserInfo(context).getUserRoles();
-    }
 
     /**
      * 获取用户ID
@@ -272,7 +263,7 @@ public class PreferencesUtils {
      * @return
      */
     public static String getUserName(Context context) {
-        UserInfoBean userInfoBean = getUserInfo(context);
+        LoginBean.UserBean userInfoBean = getUserInfo(context);
         if (userInfoBean == null) {
             return "";
         } else {
@@ -287,7 +278,7 @@ public class PreferencesUtils {
      * @return
      */
     public static String getPassWord(Context context) {
-        UserInfoBean userInfoBean = getUserInfo(context);
+        LoginBean.UserBean userInfoBean = getUserInfo(context);
         if (userInfoBean == null) {
             return "";
         } else {

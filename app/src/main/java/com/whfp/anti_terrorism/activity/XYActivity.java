@@ -43,6 +43,6 @@ public class XYActivity extends BasicActivity {
      */
     private void initMenu() {
         rv_recycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        rv_recycler.setAdapter(AdapterFactory.getAdapterByType(context, Constants.ADAPTER_XY_MENU,null,null,null));
+        rv_recycler.setAdapter(AdapterFactory.getAdapterByType(context, Constants.ADAPTER_XY_MENU,null,null,null,null));
     }
 }

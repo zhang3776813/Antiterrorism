@@ -9,7 +9,7 @@ import com.whfp.anti_terrorism.utils.StatusBarUtils;
 import org.xutils.view.annotation.ContentView;
 
 /**
- * 关于
+ * 设置
  * Created by wantao on 2018/6/15.
  */
 @ContentView(R.layout.activity_setting)

@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">罗田反恐内保平台</string>
+    <string name="app_name">罗田县公安局智能综合管理综合平台</string>
+
+    <string name="back">返回</string>
+    <string name="action_open_voice">打开声音</string>
+    <string name="action_close_voice">关闭声音</string>
+
+    <!-- Video-->
+    <string name="action_play">播放</string>
+    <string name="action_puse">暂停</string>
+    <string name="action_stop">停止</string>
+    <string name="action_fast">快放</string>
+    <string name="action_slow">慢放</string>
 </resources>

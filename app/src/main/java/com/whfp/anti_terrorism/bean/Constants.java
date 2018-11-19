@@ -37,6 +37,18 @@ public class Constants {
     public static final int SCHOOL_BUS_LIST = 3;
     //通用事件上报
     public static final int SJSB = 4;
+    //海康组织树列表
+    public static final int HK_ZZ_LIST = 5;
+    //海康监控点列表
+    public static final int HK_JKD_LIST = 6;
+    //海康HLS视频播放地址
+    public static final int HK_HLS_PATH = 7;
+    //获取校车web平台的key
+    public static final int SCHOOL_KEY = 8;
+    //获取校车的GPS信息
+    public static final int SCHOOL_GPS = 9;
+    //获取校车最后一条GPS信息
+    public static final int SCHOOL_GPS_LAST = 10;
 
 
     /**
@@ -46,10 +58,10 @@ public class Constants {
     public static final int IMAGE_LIST = 101;
     //主页九宫格菜单
     public static final int GRID_LIST = 102;
-    //加油站主页菜单
-    public static final int GAS_MENU_LIST = 103;
-    //寄递物流主页菜单
-    public static final int JDWL_MENU_LIST = 104;
+    //事件上报菜单
+    public static final int SJSB_LIST = 103;
+    //监控主页菜单
+    public static final int JKCK_MENU_LIST = 104;
     //校园主页菜单
     public static final int XY_MENU_LIST = 105;
     //水电油气主页菜单
@@ -84,6 +96,28 @@ public class Constants {
      * 7：重点单位
      */
     public static final String LIST_TYPE = "list_type";
+    //事件上报类型
+    public static final String SJSB_TYPE = "sjsb_type";
+    //事件上报标题
+    public static final String SJSB_TITLE = "sjsb_title";
+    //校车操作类型
+    public static final String SCHOOL_BUS_OPERATE_TYPE = "school_bus_operate_type";
+    //校车设备对象
+    public static final String SCHOOL_BUS_DEVICE = "school_bus_device";
+    //组织或区域编号
+    public static final String CONTROL_INDEX_CODE = "control_index_code";
+    //监控点编号
+    public static final String CAMERA_INDEX_CODE = "camera_index_code";
+    //海康监控操作类型
+    public static final String HK_OPERATE_TYPE = "hikvision_operate_type";
+    //海康区域名称
+    public static final String HK_CONTROL_NAME = "hikvision_control_name";
+    //校车设备ID
+    public static final String SCHOOL_DEVICE_ID = "school_id";
+    //校车车牌号
+    public static final String SCHOOL_BUS_NUMBER = "school_bus_number";
+    //HLS播放地址
+    public static final String HK_HLS ="hikvision_hls_path";
 
 
     /**
@@ -98,10 +132,10 @@ public class Constants {
     /**
      * RecyclerAdapter相关
      */
-    //加油站主页菜单
-    public static final int ADAPTER_GAS_MENU = 301;
-    //寄递物流主页菜单
-    public static final int ADAPTER_JDWL_MENU = 302;
+    //事件上报菜单
+    public static final int ADAPTER_SJSB_MENU = 301;
+    //监控查看菜单
+    public static final int ADAPTER_JKCK_MENU = 302;
     //校园主页菜单
     public static final int ADAPTER_XY_MENU = 303;
     //水电油气主页菜单
@@ -118,6 +152,10 @@ public class Constants {
     public static final int ADAPTER_CCRY = 309;
     //校车列表
     public static final int ADAPTER_XCLB = 310;
+    //海康组织或区域列表
+    public static final int ADAPTER_HK_CONTROL_LIST = 311;
+    //海康监控点列表
+    public static final int ADAPTER_HK_CAMERA_LIST = 312;
 
 
     /**
@@ -135,5 +173,17 @@ public class Constants {
     public static final String TYPE_ZB = "4";//值班情况上报
     public static final String TYPE_AQFF = "5";//安全防范情况上报
 
+    /**
+     * 校车的操作类型
+     */
+    public static final int SCHOOL_OPERATE_TYPE_JKCK = 401;//校车监控查看
+    public static final int SCHOOL_OPERATE_TYPE_LSLX = 402;//校车监控历史录像
+    public static final int SCHOOL_OPERATE_TYPE_YXLX = 403;//校车运行路线查看
+
+    /**
+     * 监控查看操作类型
+     */
+    public static final int HK_OPERATE_TYPE_JKCK = 501;//监控查看
+    public static final int HK_OPERATE_TYPE_LSLX = 502;//监控历史录像
 
 }

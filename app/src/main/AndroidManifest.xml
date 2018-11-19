@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.whfp.anti_terrorism">
 
 
@@ -10,15 +11,16 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".basic.BasicApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:name">
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,68 +30,51 @@
         </activity>
         <!--主页-->
         <activity android:name=".activity.MainActivity" />
-        <!--加油站主页-->
-        <activity android:name=".activity.GASActivity" />
-        <!--寄递物流主页-->
-        <activity android:name=".activity.JDWLActivity" />
+        <!--事件上报菜单页-->
+        <activity android:name=".activity.SJSBMenuActivity" />
+        <!--监控查看菜单页-->
+        <activity android:name=".activity.JKCKMenuActivity" />
+        <!--通用事件上报-->
+        <activity android:name=".activity.SJSBActivity" />
+        <!--校车监控视频页面-->
+        <activity android:name=".activity.VideoActivity" />
+        <!--校车历史录像列表-->
+        <activity android:name=".activity.RetrievalActivity" />
+        <!--校车历史录像回放界面-->
+        <activity android:name=".activity.PlayBackActivity" />
+        <!--校车运行录像查看界面-->
+        <activity android:name=".activity.SchoolBusRouteActivity" />
+        <!--海康组织或区域列表-->
+        <activity android:name=".activity.ControlListActivity" />
+        <!--海康监控点列表-->
+        <activity android:name=".activity.CameraListActivity" />
+        <!--监控查看界面-->
+        <activity android:name=".activity.MonitorActivity" />
+        <!--散装汽油加油报告-->
+        <activity android:name=".activity.SZQYJYBGActivity"/>
         <!--校园主页-->
         <activity android:name=".activity.XYActivity" />
-        <!--水电油气主页-->
-        <activity android:name=".activity.SDYQActivity" />
-        <!--党政机关主页-->
-        <activity android:name=".activity.DZJGActivity" />
-        <!--化工企业主页-->
-        <activity android:name=".activity.HGQYActivity" />
-        <!--重点单位主页-->
-        <activity android:name=".activity.ZDDWActivity" />
         <!--设置-->
         <activity android:name=".activity.SettingActivity" />
         <!--关于-->
         <activity android:name=".activity.AboutActivity" />
-        <!--实时监控查看界面-->
-        <activity android:name=".activity.MonitorActivity" />
         <!--历史监控录像列表-->
         <activity android:name=".activity.MonitorHistoryActivity" />
-        <!--散装汽油加油报告-->
-        <activity android:name=".activity.SZQYJYBGActivity" />
-        <!--校车运行情况-->
-        <activity android:name=".activity.XCYXQKActivity" />
         <!--校车运行路线-->
         <activity android:name=".activity.BusRouteActivity" />
         <!--乘车人员-->
         <activity android:name=".activity.BusPersonActivity" />
-        <!--排污情况-->
-        <activity android:name=".activity.PWQKActivity" />
         <!--校车列表-->
         <activity android:name=".activity.SchoolBusListActivity" />
         <!--校园走失情况上报-->
         <activity
             android:name=".activity.XYZSSBActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!--收寄可疑物品上报-->
-        <activity
-            android:name=".activity.SJKYWPSBActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!--案件上报-->
-        <activity
-            android:name=".activity.AJSBActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!--可疑情况上报-->
-        <activity
-            android:name=".activity.KYQKSBActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!--其他异常情况上报-->
-        <activity
-            android:name=".activity.QTYCSBActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!--值班情况上报-->
-        <activity
-            android:name=".activity.ZBQKSBActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!--安全防范情况上报-->
-        <activity
-            android:name=".activity.AQFFSBActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <!--—————————————————————————————————————————————————————————————高德地图相关配置———————————————————————————————————————————————————————————————————-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="8252a8173808132159e33d0c801eeb9b"/>
     </application>
 
 </manifest>

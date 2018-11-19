@@ -1,21 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/activity_topbar"/>
+    <include layout="@layout/activity_topbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/map"
+        android:layout_height="wrap_content"
+        android:background="@color/login_text_blue"
         android:orientation="vertical">
 
-        <!--<ImageView
+        <TextView
+            android:id="@+id/tv_school_number"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/map"/>
--->
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="当前查看的校车："
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/et_start_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/white_border_gary"
+                android:clickable="true"
+                android:focusable="false"
+                android:text=""
+                android:hint="请输入起始时间"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/et_end_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/white_border_gary"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="请输入结束时间"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_search_track"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/white_blue_round_selector"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp"
+            android:text="查询轨迹"
+            android:textColor="@color/login_text_blue"
+            android:textSize="15sp" />
     </LinearLayout>
+
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -22,9 +22,13 @@ import com.vondear.rxtools.RxLogTool;
 import com.vondear.rxtools.view.RxToast;
 import com.whfp.anti_terrorism.R;
 import com.whfp.anti_terrorism.adapter.GridImageAdapter;
+import com.whfp.anti_terrorism.basic.BaseCallback;
 import com.whfp.anti_terrorism.basic.BasicActivity;
+import com.whfp.anti_terrorism.bean.Constants;
+import com.whfp.anti_terrorism.bean.SJSBBean;
 import com.whfp.anti_terrorism.utils.FullyGridLayoutManager;
 import com.whfp.anti_terrorism.utils.PictureSelectorUtils;
+import com.whfp.anti_terrorism.utils.PreferencesUtils;
 import com.whfp.anti_terrorism.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ContentView;
@@ -89,10 +93,9 @@ public class SZQYJYBGActivity extends BasicActivity implements EasyPermissions.P
     private final static int REQUEST_SELECT_PHOTO_XCZP = 105;//选择现场照片的请求码
 
     //选择照片返回的地址
-    private String pathPCSZM;//派出所证明照片路径
-    private String pathSFZZM;//身份证正面照片路径
-    private String pathSFZFM;//身份证反面照片路径
-    private List<String> pathXCZP;//现场照片列表路径集合
+    private List<LocalMedia> list_pathPCSZM;//派出所证明照片路径
+    private List<LocalMedia> list_pathSFZZM;//身份证正面照片路径
+    private List<LocalMedia> list_pathSFZFM;//身份证反面照片路径
     private List<LocalMedia> list_data = new ArrayList<>();//现场照片列表原始路径集合
 
 
@@ -163,6 +166,66 @@ public class SZQYJYBGActivity extends BasicActivity implements EasyPermissions.P
         });
     }
 
+    /**
+     * 验证表单
+     *
+     * @return
+     */
+    private boolean Check() {
+        if (list_pathPCSZM == null || list_pathPCSZM.size() <= 0) {
+            RxToast.info("请选择派出所证明照片");
+            return false;
+        }
+        if (list_pathSFZZM == null || list_pathSFZZM.size() <= 0) {
+            RxToast.info("请选择身份证正面照片");
+            return false;
+        }
+        if (list_pathPCSZM == null || list_pathPCSZM.size() <= 0) {
+            RxToast.info("请选择身份证反面照片");
+            return false;
+        }
+        if (list_data == null || list_data.size() <= 0) {
+            RxToast.info("请选择至少选择一张现场照片");
+            return false;
+        }
+        if (et_jyl.getText().toString().trim().equals("") || et_jyl.getText().toString().length() <= 0) {
+            RxToast.info("请填写加油量");
+            return false;
+        }
+        if (et_jyyt.getText().toString().trim().equals("") || et_jyyt.getText().toString().length() <= 0) {
+            RxToast.info("请填写加油用途");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 连接网络   开始上报
+     */
+    private void http() {
+        startRxLodingDialog("努力上报中...", false);
+        httpUtils.doGasolineEvent(PreferencesUtils.getUserId(context), et_jyl.getText().toString().trim(),
+                et_jyyt.getText().toString().trim(), list_pathPCSZM, list_pathSFZZM, list_pathSFZFM, list_data, new BaseCallback(context, Constants.SJSB) {
+                    @Override
+                    public void showDatas(Object obj) {
+                        super.showDatas(obj);
+                        stopRxLodingDialog();
+                        SJSBBean bean = (SJSBBean) obj;
+                        if (bean != null && bean.getCode().equals("200")) {
+                            showAlertDialog("提示", bean.getMsg(), "确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                    finish();
+                                }
+                            });
+                        } else {
+                            RxToast.info(bean.getMsg());
+                        }
+                    }
+                });
+    }
+
     @Event(value = {R.id.iv_pcszm, R.id.iv_id_card_z, R.id.iv_id_card_f, R.id.btn_submit})
     private void OnClick(View v) {
         switch (v.getId()) {
@@ -179,13 +242,9 @@ public class SZQYJYBGActivity extends BasicActivity implements EasyPermissions.P
                     PictureSelectorUtils.startPictureSelector(SZQYJYBGActivity.this, REQUEST_SELECT_PHOTO_SFZFM);
                 break;
             case R.id.btn_submit://上报
-                showAlertDialog("提示", "上报成功", "确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        finish();
-                    }
-                });
+                if (Check()) {
+                    http();
+                }
                 RxLogTool.i(list_data.toString());
                 break;
         }
@@ -202,11 +261,10 @@ public class SZQYJYBGActivity extends BasicActivity implements EasyPermissions.P
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            String path = "";
+            LocalMedia localMediaPath = null;
             if (requestCode != REQUEST_SELECT_PHOTO_XCZP) {
-                LocalMedia localMediaPath = PictureSelector.obtainMultipleResult(data).get(0);
-                path = localMediaPath.getCompressPath();
-                logI("获取到的图片Uri地址是：" + path);
+                localMediaPath = PictureSelector.obtainMultipleResult(data).get(0);
+                logI("获取到的图片Uri地址是：" + localMediaPath.getCompressPath());
             } else {//现场照片
                 list_data = PictureSelector.obtainMultipleResult(data);
                 adapter.setList(list_data);
@@ -214,16 +272,19 @@ public class SZQYJYBGActivity extends BasicActivity implements EasyPermissions.P
             }
             switch (requestCode) {
                 case REQUEST_SELECT_PHOTO_PCSZM://派出所证明
-                    pathPCSZM = path;
-                    Glide.with(SZQYJYBGActivity.this).load(pathPCSZM).into(iv_pcszm);
+                    list_pathPCSZM = new ArrayList<>();
+                    list_pathPCSZM.add(localMediaPath);
+                    Glide.with(SZQYJYBGActivity.this).load(list_pathPCSZM.get(0).getCompressPath()).into(iv_pcszm);
                     break;
                 case REQUEST_SELECT_PHOTO_SFZZM://身份证正面
-                    pathSFZZM = path;
-                    Glide.with(SZQYJYBGActivity.this).load(pathSFZZM).into(iv_id_card_z);
+                    list_pathSFZZM = new ArrayList<>();
+                    list_pathSFZZM.add(localMediaPath);
+                    Glide.with(SZQYJYBGActivity.this).load(list_pathSFZZM.get(0).getCompressPath()).into(iv_id_card_z);
                     break;
                 case REQUEST_SELECT_PHOTO_SFZFM://身份证反面
-                    pathSFZFM = path;
-                    Glide.with(SZQYJYBGActivity.this).load(pathSFZFM).into(iv_id_card_f);
+                    list_pathSFZFM = new ArrayList<>();
+                    list_pathSFZFM.add(localMediaPath);
+                    Glide.with(SZQYJYBGActivity.this).load(list_pathSFZFM.get(0).getCompressPath()).into(iv_id_card_f);
                     break;
             }
         } else {
@@ -245,6 +306,7 @@ public class SZQYJYBGActivity extends BasicActivity implements EasyPermissions.P
 
     /**
      * 权限申请回调
+     *
      * @param requestCode
      * @param permissions
      * @param grantResults

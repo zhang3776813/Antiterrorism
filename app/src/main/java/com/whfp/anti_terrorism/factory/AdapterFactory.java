@@ -1,6 +1,8 @@
 package com.whfp.anti_terrorism.factory;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -10,14 +12,18 @@ import com.chad.library.adapter.base.BaseQuickAdapter.OnItemChildClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.whfp.anti_terrorism.R;
+import com.whfp.anti_terrorism.activity.CameraListActivity;
 import com.whfp.anti_terrorism.adapter.MyBaseRecyclerAdapter;
 import com.whfp.anti_terrorism.bean.BusPersonBean;
+import com.whfp.anti_terrorism.bean.CameraBean;
 import com.whfp.anti_terrorism.bean.Constants;
+import com.whfp.anti_terrorism.bean.ControlUnitBean;
 import com.whfp.anti_terrorism.bean.MenuBean;
 import com.whfp.anti_terrorism.bean.MonitorHistoryBean;
 import com.whfp.anti_terrorism.bean.SchoolBusListBean;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -34,18 +40,20 @@ public class AdapterFactory {
      * @param list               传入的数据 (可为空)
      * @param listener           Item点击事件(可为空)
      * @param childClickListener 子控件点击事件（可为空）
+     * @param object             附加参数（可为空）
      * @return
      */
-    public static MyBaseRecyclerAdapter getAdapterByType(Context context, int type, @Nullable List list,
+    public static MyBaseRecyclerAdapter getAdapterByType(Context context, int type, @NonNull List list,
                                                          @Nullable OnItemClickListener listener,
-                                                         @Nullable OnItemChildClickListener childClickListener) {
+                                                         @Nullable OnItemChildClickListener childClickListener,
+                                                         @Nullable Object object) {
         MyBaseRecyclerAdapter adapter = null;
         switch (type) {
-            case Constants.ADAPTER_GAS_MENU://加油站主页菜单
-                adapter = getAdapterGASMenu(context);
+            case Constants.ADAPTER_SJSB_MENU://事件上报菜单
+                adapter = getAdapterSJSBMenu(context);
                 break;
-            case Constants.ADAPTER_JDWL_MENU://寄递物流主页菜单
-                adapter = getAdapterJDWLMenu(context);
+            case Constants.ADAPTER_JKCK_MENU://寄递物流主页菜单
+                adapter = getAdapterJKCKMenu(context);
                 break;
             case Constants.ADAPTER_XY_MENU://校园主页菜单
                 adapter = getAdapterXYMenu(context);
@@ -69,10 +77,71 @@ public class AdapterFactory {
                 adapter = getAdapterCCRY(context, list);
                 break;
             case Constants.ADAPTER_XCLB://校车列表
-                adapter = getAdapterXCLB(context, list);
+                adapter = getAdapterXCLB(context, list, listener, object);
+                break;
+            case Constants.ADAPTER_HK_CONTROL_LIST://海康组织列表
+                adapter = getAdapterHKControlList(context, list, object);
+                break;
+            case Constants.ADAPTER_HK_CAMERA_LIST://海康监控点列表
+                adapter = getAdapterHKCameraList(context, list, listener);
                 break;
         }
         return adapter;
+    }
+
+    /**
+     * 海康监控点列表
+     *
+     * @param context
+     * @param list
+     * @param listener
+     * @return
+     */
+    private static MyBaseRecyclerAdapter getAdapterHKCameraList(final Context context, List<CameraBean.DataBean> list, OnItemClickListener listener) {
+        return new MyBaseRecyclerAdapter<CameraBean.DataBean>(context, R.layout.item_recycler_list_control, list, listener, null) {
+            @Override
+            protected void convert(BaseViewHolder helper, CameraBean.DataBean item) {
+                helper.setText(R.id.tv_menu_text, item.getName());
+                int isOnline = item.getIsOnline();
+                switch (isOnline) {
+                    case 1://在线
+                        helper.setText(R.id.tv_status, "██  在线");
+                        helper.setTextColor(R.id.tv_status, ContextCompat.getColor(context, R.color.green));
+                        break;
+                    case 0://不在线
+                        helper.setText(R.id.tv_status, "██  离线");
+                        helper.setTextColor(R.id.tv_status, ContextCompat.getColor(context, R.color.text_color_gray));
+                        break;
+                }
+            }
+        };
+    }
+
+
+    /**
+     * 海康组织和区域列表
+     *
+     * @param context
+     * @param list
+     * @return
+     */
+    private static MyBaseRecyclerAdapter getAdapterHKControlList(final Context context, final List<ControlUnitBean.DataBean> list, final Object object) {
+        return new MyBaseRecyclerAdapter<ControlUnitBean.DataBean>(context, R.layout.item_recycler_list_menu, list, new OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ControlUnitBean.DataBean dataBean = (ControlUnitBean.DataBean) adapter.getData().get(position);
+                Intent intent = new Intent(context, CameraListActivity.class);
+                intent.putExtra(Constants.HK_CONTROL_NAME, dataBean.getName());
+                intent.putExtra(Constants.CONTROL_INDEX_CODE, dataBean.getIndexCode());
+                intent.putExtra(Constants.HK_OPERATE_TYPE, (int) object);
+                context.startActivity(intent);
+            }
+        }, null) {
+            @Override
+            protected void convert(BaseViewHolder helper, ControlUnitBean.DataBean item) {
+                helper.setText(R.id.tv_menu_text, item.getName());
+            }
+        };
     }
 
 
@@ -199,16 +268,16 @@ public class AdapterFactory {
     }
 
     /**
-     * 寄递物流主页列表菜单适配器
+     * 监控查看列表菜单适配器
      *
      * @param context
      * @return
      */
-    private static MyBaseRecyclerAdapter getAdapterJDWLMenu(final Context context) {
-        return new MyBaseRecyclerAdapter<MenuBean>(context, R.layout.item_recycler_list_menu, MyFactory.getBaseListDatas(Constants.JDWL_MENU_LIST), new OnItemClickListener() {
+    private static MyBaseRecyclerAdapter getAdapterJKCKMenu(final Context context) {
+        return new MyBaseRecyclerAdapter<MenuBean>(context, R.layout.item_recycler_list_menu, MyFactory.getBaseListDatas(Constants.JKCK_MENU_LIST), new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MyFactory.ListClick(context, Constants.JDWL_MENU_LIST, position, null);
+                MyFactory.ListClick(context, Constants.JKCK_MENU_LIST, position, null);
             }
         }, null) {
             @Override
@@ -220,16 +289,17 @@ public class AdapterFactory {
     }
 
     /**
-     * 加油站主页列表菜单适配器
+     * 事件上报列表菜单适配器
      *
      * @param context
      * @return
      */
-    private static MyBaseRecyclerAdapter getAdapterGASMenu(final Context context) {
-        return new MyBaseRecyclerAdapter<MenuBean>(context, R.layout.item_recycler_list_menu, MyFactory.getBaseListDatas(Constants.GAS_MENU_LIST), new OnItemClickListener() {
+    private static MyBaseRecyclerAdapter getAdapterSJSBMenu(final Context context) {
+        return new MyBaseRecyclerAdapter<MenuBean>(context, R.layout.item_recycler_list_menu, MyFactory.getBaseListDatas(Constants.SJSB_LIST), new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MyFactory.ListClick(context, Constants.GAS_MENU_LIST, position, null);
+                MenuBean menuBean = (MenuBean) MyFactory.getBaseListDatas(Constants.SJSB_LIST).get(position);
+                MyFactory.ListClick(context, Constants.SJSB_LIST, position, menuBean.getText());
             }
         }, null) {
             @Override
@@ -247,8 +317,9 @@ public class AdapterFactory {
      * @param list
      * @return
      */
-    private static MyBaseRecyclerAdapter getAdapterCCRY(Context context, List<BusPersonBean> list) {
-        return new MyBaseRecyclerAdapter<BusPersonBean>(context, R.layout.item_recycler_ccry, list, null, null) {
+    private static MyBaseRecyclerAdapter getAdapterCCRY(Context context, final List<BusPersonBean> list) {
+        return new MyBaseRecyclerAdapter<BusPersonBean>(context, R.layout.item_recycler_ccry, list, null
+                , null) {
             @Override
             protected void convert(BaseViewHolder helper, BusPersonBean item) {
                 helper.setText(R.id.tv_name, item.getName());
@@ -264,13 +335,17 @@ public class AdapterFactory {
      * @param list
      * @return
      */
-    private static MyBaseRecyclerAdapter getAdapterXCLB(final Context context, List<SchoolBusListBean.DeviceBean> list) {
-        return new MyBaseRecyclerAdapter<SchoolBusListBean.DeviceBean>(context, R.layout.item_recycler_xclb, list, null, null) {
+    private static MyBaseRecyclerAdapter getAdapterXCLB(final Context context, List<SchoolBusListBean.DeviceBean> list, OnItemClickListener listener, final Object object) {
+        return new MyBaseRecyclerAdapter<SchoolBusListBean.DeviceBean>(context, R.layout.item_recycler_xclb, list, listener, null) {
             @Override
             protected void convert(BaseViewHolder helper, SchoolBusListBean.DeviceBean item) {
-                helper.setText(R.id.tv_car_number, "车牌号码："+item.getCarlicence());
-                helper.setText(R.id.tv_channel, "通道数量："+item.getChannelcount());
-                helper.setText(R.id.tv_device_number, "设备编号："+item.getDeviceid());
+                Map<Integer, String> group_dictionary = (Map<Integer, String>) object;
+                String gs = group_dictionary.get(item.getGroupid());
+
+                helper.setText(R.id.tv_car_number, "车牌号码：" + item.getCarlicence());
+                helper.setText(R.id.tv_channel, "通道数量：" + item.getChannelcount());
+                helper.setText(R.id.tv_device_number, "设备编号：" + item.getDeviceid());
+                helper.setText(R.id.tv_logistic_company, "运营公司：" + gs);
                 if (item.getStatus() == 1) {
                     helper.setText(R.id.tv_status, "在线");
                     helper.setTextColor(R.id.tv_status, ContextCompat.getColor(context, R.color.green));

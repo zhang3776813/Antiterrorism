@@ -4,9 +4,15 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.whfp.anti_terrorism.bean.BasicBean;
+import com.whfp.anti_terrorism.bean.CameraBean;
 import com.whfp.anti_terrorism.bean.Constants;
+import com.whfp.anti_terrorism.bean.ControlUnitBean;
+import com.whfp.anti_terrorism.bean.HlsBean;
 import com.whfp.anti_terrorism.bean.LoginBean;
+import com.whfp.anti_terrorism.bean.SJSBBean;
+import com.whfp.anti_terrorism.bean.SchoolBusGpsBean;
 import com.whfp.anti_terrorism.bean.SchoolBusListBean;
+import com.whfp.anti_terrorism.bean.SchoolKeyBean;
 
 import java.lang.reflect.Type;
 
@@ -38,13 +44,65 @@ public class ParserUtils {
                 obj = parserSchoolBusList(result);
                 break;
             case Constants.SJSB://通用事件上报解析
+                obj = parserSJSB(result);
                 break;
+            case Constants.HK_ZZ_LIST://海康组织树列表解析
+                obj = parserHKControlList(result);
+                break;
+            case Constants.HK_JKD_LIST://海康监控点列表解析
+                obj = parserHKCameraList(result);
+                break;
+            case Constants.HK_HLS_PATH://海康HLS地址
+                obj = parserHKHlsPath(result);
+                break;
+            case Constants.SCHOOL_KEY://获取校车WEb平台的KEY
+                obj = parserSchoolKey(result);
+                break;
+            case Constants.SCHOOL_GPS://获取校车GPS信息
+                obj = parserSchoolBusGps(result);
+                break;
+
             case Constants.DEFAULT://默认解析
                 obj = parserBasic(result);
                 break;
 
         }
         return obj;
+    }
+
+
+    /**
+     * 获取校车的GPS数据解析
+     *
+     * @param result
+     * @return
+     */
+    private Object parserSchoolBusGps(String result) {
+        SchoolBusGpsBean bean = new Gson().fromJson(result, SchoolBusGpsBean.class);
+        return bean;
+    }
+
+    /**
+     * 获取校车WEb平台的Key解析
+     *
+     * @param result
+     * @return
+     */
+    private Object parserSchoolKey(String result) {
+        SchoolKeyBean bean = new Gson().fromJson(result, SchoolKeyBean.class);
+        return bean;
+    }
+
+
+    /**
+     * 海康HLS地址获取解析
+     *
+     * @param result
+     * @return
+     */
+    private Object parserHKHlsPath(String result) {
+        HlsBean bean = new Gson().fromJson(result, HlsBean.class);
+        return bean;
     }
 
 
@@ -76,7 +134,41 @@ public class ParserUtils {
         return null;
     }
 
+    /**
+     * 事件上报解析
+     *
+     * @param result
+     * @return
+     */
+    private Object parserSJSB(String result) {
+        SJSBBean bean = new Gson().fromJson(result, SJSBBean.class);
+        if (bean != null) {
+            return bean;
+        }
+        return null;
+    }
 
+    /**
+     * 海康组织树列表解析
+     *
+     * @param result
+     * @return
+     */
+    private Object parserHKControlList(String result) {
+        ControlUnitBean controlUnitBean = new Gson().fromJson(result, ControlUnitBean.class);
+        return controlUnitBean;
+    }
+
+    /**
+     * 海康监控点列表解析
+     *
+     * @param result
+     * @return
+     */
+    private Object parserHKCameraList(String result) {
+        CameraBean cameraBean = new Gson().fromJson(result, CameraBean.class);
+        return cameraBean;
+    }
     // ------------------------------------各类分类解析方法---------------------------------------
 
     private BasicBean parser(String json, Type type) {

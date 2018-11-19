@@ -77,6 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
+                android:inputType="textPassword"
+                android:maxLines="1"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
@@ -86,9 +88,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
+            android:orientation="horizontal"
             android:paddingBottom="15dp"
-            android:orientation="horizontal">
+            android:paddingTop="15dp">
 
             <TextView
                 android:id="@+id/tv_register"
@@ -97,7 +99,7 @@
                 android:layout_weight="1"
                 android:text="注册账号"
                 android:textColor="@color/white"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_forget_pwd"
@@ -105,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="忘记密码?"
                 android:textColor="@color/white"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
         </LinearLayout>
 
         <Button
@@ -115,8 +117,8 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/selector_btn_login"
             android:text="登录"
-            android:textSize="14dp"
-            android:textColor="@color/theme_bg"/>
+            android:textColor="@color/theme_bg"
+            android:textSize="14dp" />
 
 
     </LinearLayout>

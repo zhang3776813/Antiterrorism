@@ -92,16 +92,7 @@ public class BaseCallback extends MyCallback<String> {
     @Override
     public void onSuccess(String result) {
         //可能会有log过长的问题所以采取分段打印
-        if (result.length() > 4000) {
-            for (int i = 0; i < result.length(); i += 4000) {
-                if (i + 4000 < result.length())
-                    Log.i("onSuccess" + i, result.substring(i, i + 4000));
-                else
-                    Log.i("onSuccess" + i, result.substring(i, result.length()));
-            }
-        } else {
-            Log.i("resinfo", result);
-        }
+        To.showLogCompletion("onSuccess",result);
 
         Object obj = parserUtils.parseAllByType(result, type);
         if (type == Constants.DEFAULT) {

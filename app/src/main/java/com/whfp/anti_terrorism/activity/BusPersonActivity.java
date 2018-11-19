@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.whfp.anti_terrorism.R;
-import com.whfp.anti_terrorism.basic.BasicRecyclerRefreshActivity;
+import com.whfp.anti_terrorism.basic.BasicRecyclerRefreshAndLoadMoreActivity;
 import com.whfp.anti_terrorism.bean.Constants;
 import com.whfp.anti_terrorism.factory.AdapterFactory;
 import com.whfp.anti_terrorism.factory.MyFactory;
@@ -21,7 +21,7 @@ import org.xutils.view.annotation.ViewInject;
  * Created by wantao on 2018/6/15.
  */
 @ContentView(R.layout.activity_recycler_universal_refresh_and_loadmore)
-public class BusPersonActivity extends BasicRecyclerRefreshActivity{
+public class BusPersonActivity extends BasicRecyclerRefreshAndLoadMoreActivity {
 
     @ViewInject(R.id.refreshLayout)
     private SmartRefreshLayout refreshLayout;
@@ -60,7 +60,7 @@ public class BusPersonActivity extends BasicRecyclerRefreshActivity{
 
     @Override
     public BaseQuickAdapter getAdapter() {
-        return AdapterFactory.getAdapterByType(context, Constants.ADAPTER_CCRY, list_data, null,null);
+        return AdapterFactory.getAdapterByType(context, Constants.ADAPTER_CCRY, list_data, null,null,null);
     }
 
     @Override

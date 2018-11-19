@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.vondear.rxtools.RxActivityTool;
 import com.whfp.anti_terrorism.R;
-import com.whfp.anti_terrorism.basic.BasicRecyclerRefreshActivity;
+import com.whfp.anti_terrorism.basic.BasicRecyclerRefreshAndLoadMoreActivity;
 import com.whfp.anti_terrorism.bean.Constants;
 import com.whfp.anti_terrorism.factory.AdapterFactory;
 import com.whfp.anti_terrorism.factory.MyFactory;
@@ -24,7 +24,7 @@ import org.xutils.view.annotation.ViewInject;
  * Created by 张明杨 on 2018-06-14-0014.
  */
 @ContentView(R.layout.activity_recycler_universal_refresh_and_loadmore)
-public class MonitorHistoryActivity extends BasicRecyclerRefreshActivity {
+public class MonitorHistoryActivity extends BasicRecyclerRefreshAndLoadMoreActivity {
 
     //历史监控录像列表
     @ViewInject(R.id.rv_recycler)
@@ -67,7 +67,7 @@ public class MonitorHistoryActivity extends BasicRecyclerRefreshActivity {
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         RxActivityTool.skipActivity(context, MonitorActivity.class);
                     }
-                }, null);
+                }, null,null);
     }
 
     @Override

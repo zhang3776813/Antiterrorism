@@ -1,6 +1,7 @@
 package com.whfp.anti_terrorism.basic;
 
 import android.content.Context;
+import android.support.annotation.IntDef;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,7 +10,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vondear.rxtools.RxLogTool;
@@ -23,7 +23,7 @@ import com.whfp.anti_terrorism.utils.RecycleViewDividerUtils;
 import java.util.List;
 
 /**
- * 下拉刷新上拉加载基类
+ * 下拉刷新基类(没有加载更多功能)
  * Created by 张明杨 on 2018-05-07-0007.
  */
 public abstract class BasicRecyclerRefreshActivity extends BasicActivity implements RefreshCallBack, OnRefreshListener, OnLoadMoreListener {
@@ -46,15 +46,18 @@ public abstract class BasicRecyclerRefreshActivity extends BasicActivity impleme
     //布局管理器
     protected LinearLayoutManager linearLayoutManager;
 
-    //当前页码
-    protected int currentPage = 1;
+
+    @IntDef({Constants.FIRSTLOAD, Constants.REFRESH})
+    public @interface Type {
+    }
+
 
     /**
      * 获取数据
      *
      * @param type 加载类型
      */
-    protected abstract void getDatas(int type);
+    protected abstract void getDatas(@Type int type);
 
 
     /**
@@ -74,11 +77,11 @@ public abstract class BasicRecyclerRefreshActivity extends BasicActivity impleme
 
 
         if (rv_recycler == null) {
-            RxLogTool.e("BasicRecyclerRefreshActivity：列表控件为空，请检查子类是否传入");
+            RxLogTool.e("BasicRecyclerRefreshAndLoadMoreActivity：列表控件为空，请检查子类是否传入");
             return;
         }
         if (smartRefreshLayout == null) {
-            RxLogTool.e("BasicRecyclerRefreshActivity：刷新加载控件为空,请检查子类是否传入");
+            RxLogTool.e("BasicRecyclerRefreshAndLoadMoreActivity：刷新加载控件为空,请检查子类是否传入");
             return;
         }
 
@@ -99,24 +102,20 @@ public abstract class BasicRecyclerRefreshActivity extends BasicActivity impleme
         //添加分割线
         rv_recycler.addItemDecoration(recycleViewDivider);
         /**
-         * 设置是刷新加载控件
+         * 设置是刷新控件
          */
+        //禁用上拉加载更多
+        smartRefreshLayout.setEnableLoadMore(false);
         //设置刷新布局
         smartRefreshLayout.setRefreshHeader(new BezierCircleHeader(context));
-        //设置加载更多布局
-        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(context));
         //刷新时禁止操作内容视图
         smartRefreshLayout.setDisableContentWhenRefresh(false);
-        //加载时禁止操作内容视图
-        smartRefreshLayout.setDisableContentWhenLoading(false);
-        //内容不满一页时禁止上拉加载
-        smartRefreshLayout.setEnableLoadMoreWhenContentNotFull(false);
         //Header标准高度（显示下拉高度>=标准高度 触发刷新）
         smartRefreshLayout.setHeaderHeight(70);
         //Footer标准高度（显示上拉高度>=标准高度 触发加载）
         smartRefreshLayout.setFooterHeight(70);
+        //设置刷新回调
         smartRefreshLayout.setOnRefreshListener(this);
-        smartRefreshLayout.setOnLoadMoreListener(this);
         //设置进入自动刷新
 //        refreshLayout.autoRefresh();
     }
@@ -149,7 +148,7 @@ public abstract class BasicRecyclerRefreshActivity extends BasicActivity impleme
 
 
     /**
-     * 刷新加载处理加载处理
+     * 刷新处理
      *
      * @param list
      * @param loadType
@@ -172,35 +171,11 @@ public abstract class BasicRecyclerRefreshActivity extends BasicActivity impleme
                         initAdapter();
                     }
                     list_data = list;
+                    RxLogTool.i("条数："+list_data.size());
                     //为Adapter设置新数据
                     adapter.setNewData(list_data);
                     //刷新成功，收回刷新布局
                     smartRefreshLayout.finishRefresh(true);
-                    //设置允许上拉加载啦
-                    smartRefreshLayout.setEnableLoadMore(true);
-                    break;
-                case Constants.LOADMORE://加载更多
-                    if (list == null || list.size() <= 0) {//数据为空
-                        currentPage--;
-                        //数据全部加载完毕
-                        smartRefreshLayout.finishLoadMoreWithNoMoreData();
-                    } else if (list.size() < Constants.PAGE_SIZE) {//数据小于规定的每页数量，则没有更多数据了
-                        //添加新数据数据至数据源中
-                        list_data.addAll(list);
-                        //数据全部加载完毕
-                        smartRefreshLayout.finishLoadMoreWithNoMoreData();
-                        //刷新Adapter
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        //添加新数据数据至数据源中
-                        list_data.addAll(list);
-                        //加载成功，收回加载布局
-                        smartRefreshLayout.finishRefresh(true);
-                        //刷新Adapter
-                        adapter.notifyDataSetChanged();
-                    }
-                    //设置允许下拉刷新啦
-                    smartRefreshLayout.setEnableRefresh(true);
                     break;
             }
         } else {
@@ -219,43 +194,24 @@ public abstract class BasicRecyclerRefreshActivity extends BasicActivity impleme
                     adapter.setNewData(list_data);
                     //刷新失败，收回刷新布局
                     smartRefreshLayout.finishRefresh(false);
-                    //设置允许上拉加载啦
-                    smartRefreshLayout.setEnableLoadMore(true);
                     //刷新Adapter数据
                     adapter.notifyDataSetChanged();
                     RxToast.error("暂无数据");
-                    break;
-                case Constants.LOADMORE://加载更多
-                    currentPage--;
-                    //数据全部加载完毕
-                    smartRefreshLayout.finishLoadMoreWithNoMoreData();
-                    //设置允许下拉刷新啦
-                    smartRefreshLayout.setEnableRefresh(true);
                     break;
             }
         }
     }
 
-
-    //加载更多
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {
-        currentPage++;
-        //加载时禁止刷新
-        refreshLayout.setEnableRefresh(false);
-        refreshLayout.finishLoadMore(5000);//延迟5秒后结束加载
-        getDatas(Constants.LOADMORE);
+
     }
 
     //刷新
     @Override
     public void onRefresh(RefreshLayout refreshLayout) {
-        //页码归为1
-        currentPage = 1;
-        //刷新时禁止加载更多
-        refreshLayout.setEnableLoadMore(false);
-        //将没有数据的状态改为有数据
-        refreshLayout.setNoMoreData(false);
+//        //将没有数据的状态改为有数据
+//        refreshLayout.setNoMoreData(false);
         refreshLayout.finishRefresh(5000);//延迟5秒后结束刷新
         getDatas(Constants.REFRESH);
     }

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.whfp.anti_terrorism.R;
-import com.whfp.anti_terrorism.basic.BasicRecyclerRefreshActivity;
+import com.whfp.anti_terrorism.basic.BasicRecyclerRefreshAndLoadMoreActivity;
 import com.whfp.anti_terrorism.bean.Constants;
 
 import org.xutils.view.annotation.ContentView;
@@ -17,7 +17,7 @@ import org.xutils.view.annotation.ViewInject;
  * Created by 张明杨 on 2018-09-05-0005.
  */
 @ContentView(R.layout.activity_recycler_universal_refresh_and_loadmore)
-public class ListActivity extends BasicRecyclerRefreshActivity {
+public class ListActivity extends BasicRecyclerRefreshAndLoadMoreActivity {
 
     //历史监控录像列表
     @ViewInject(R.id.rv_recycler)

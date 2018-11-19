@@ -5,7 +5,7 @@ apply plugin: 'com.android.application'
  * @return
  */
 def getTime() {
-    return new Date().format("yyyyMMdd", TimeZone.getDefault());
+    return new Date().format("yyyyMMdd_HH_mm_ss", TimeZone.getDefault());
 }
 
 android {
@@ -13,10 +13,17 @@ android {
     defaultConfig {
         applicationId "com.whfp.anti_terrorism"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a"
+//            , "arm64-v8a", "x86","arm64-v8a","x86_64"
+        }
     }
     buildTypes {
         release {
@@ -31,10 +38,20 @@ android {
         }
     }
 
+    repositories {
+        flatDir {
+            dirs 'libs','../hikvision/libs'
+        }
+    }
+
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "罗田公安反恐内保平台_v${defaultConfig.versionName}_${variant.buildType.name}_${getTime()}.apk"
+            outputFileName = "罗田县公安局智能综合管理综合平台_v${defaultConfig.versionName}_${variant.buildType.name}_${getTime()}.apk"
         }
+    }
+
+    dexOptions{
+        jumboMode true
     }
 }
 
@@ -45,41 +62,81 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     //以下是自己导入的
+
     //RecyclerView
     implementation 'com.android.support:design:27.1.1'
+
     //Xutils3快速开发框架
     implementation 'org.xutils:xutils:3.5.0'
+
     //RxTools工具库
     implementation 'com.github.vondear:RxTools:v1.7.7.3'
+
     //json解析工具库
     implementation 'com.google.code.gson:gson:2.3.1'
+
     //广告轮播库
     implementation 'com.youth.banner:banner:1.4.10'
+
     //图片加载框架
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+
     //实现圆形图片的自定义View
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
     //一个强大并且灵活的RecyclerViewAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
     //表单验证框架
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+
     //动态权限请求框架
     implementation 'pub.devrel:easypermissions:1.2.0'
+
+    //时间选择器
+    implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+
     //下拉刷新上拉加载框架
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
+
     //没有使用特殊Header，可以不加这行
+
     //自创的库
     implementation files('libs/King_2014-4-25_v1.0.jar')
+
     //沉浸式状态栏依赖库
     implementation files('libs/systembartint-1.0.4.jar')
+
+    //Scoket的封装
+    implementation('io.socket:socket.io-client:1.0.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+
     //照片选择器库
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+
     //校车视频SDK
     implementation files('libs/CeibaAPIs.jar')
+
     //七牛播放器SDK
     implementation files('libs/pldroid-player-2.1.4.jar')
 
+    //海康视频平台SDK
+    implementation project(':hikvision')
+
+    //高德地图相关
+
+    //2D地图
+    implementation 'com.amap.api:map2d:latest.integration'
+
+    //定位
+    implementation 'com.amap.api:location:latest.integration'
+
+    //分包
+    implementation 'com.android.support:multidex:1.0.1'
 }

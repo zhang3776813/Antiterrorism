@@ -19,7 +19,7 @@ public @interface Mobile {
 
     int messageResId() default -1;                     // Mandatory attribute
 
-    String message() default "Oops... too pricey";   // Mandatory attribute
+    String message() default "请输入正确的手机号码";   // Mandatory attribute
 
     int sequence() default -1;                     // Mandatory attribute
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="74dp"
+    android:layout_height="86dp"
     android:orientation="vertical"
     android:padding="5dp">
 
@@ -67,6 +67,16 @@
                 android:textColor="@color/text_color_gray"
                 android:textSize="14sp" />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_logistic_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="运营公司："
+            android:textColor="@color/text_black"
+            android:textSize="14sp" />
+
+
     </LinearLayout>
 </LinearLayout>
 

@@ -1,7 +1,14 @@
 package com.whfp.anti_terrorism.utils;
 
+import android.content.Context;
 import android.text.format.Time;
 import android.util.Log;
+
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.vondear.rxtools.view.RxToast;
+import com.whfp.anti_terrorism.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +24,77 @@ public class TimeUtils {
 
     public static String dateFormat_day = "HH:mm";
     public static String dateFormat_month = "MM-dd";
+
+
+    /**
+     * 初始化时间选择器
+     *
+     * @param context        上下文
+     * @param listener       回调事件
+     * @param minMillseconds 最小可选时间（单位毫秒）
+     * @param MaxMillseconds 最大可选时间（单位毫秒）
+     * @return 初始化好的事件选择器
+     */
+    public static TimePickerDialog initTimePickerDialog(Context context, OnDateSetListener listener, long minMillseconds, long MaxMillseconds) {
+
+
+        return new TimePickerDialog.Builder()
+                .setCallBack(listener)
+                .setCancelStringId("取消")
+                .setSureStringId("确定")
+                .setTitleStringId("走失时间")
+                .setYearText("年")
+                .setMonthText("月")
+                .setDayText("日")
+                .setHourText("时")
+                .setMinuteText("分")
+                .setCyclic(false)//是否循环
+                .setMinMillseconds(minMillseconds)//最小可选时间（单位毫秒）
+                .setMaxMillseconds(MaxMillseconds)//最大可选时间（单位毫秒）
+                .setCurrentMillseconds(System.currentTimeMillis())//当前时间（单位毫秒）
+                .setThemeColor(context.getResources().getColor(R.color.login_text_blue))
+                .setType(Type.ALL)
+                .setWheelItemTextNormalColor(context.getResources().getColor(R.color.timetimepicker_default_text_color))
+                .setWheelItemTextSelectorColor(context.getResources().getColor(R.color.timepicker_toolbar_bg))
+                .setWheelItemTextSize(12)
+                .build();
+    }
+
+
+    /**
+     * 初始化时间选择器
+     *
+     * @param context        上下文
+     * @param title          时间选择标题
+     * @param listener       回调事件
+     * @param minMillseconds 最小可选时间（单位毫秒）
+     * @param MaxMillseconds 最大可选时间（单位毫秒）
+     * @return 初始化好的事件选择器
+     */
+    public static TimePickerDialog initTimePickerDialog(Context context,String title,OnDateSetListener listener, long minMillseconds, long MaxMillseconds) {
+
+
+        return new TimePickerDialog.Builder()
+                .setCallBack(listener)
+                .setCancelStringId("取消")
+                .setSureStringId("确定")
+                .setTitleStringId(title)
+                .setYearText("年")
+                .setMonthText("月")
+                .setDayText("日")
+                .setHourText("时")
+                .setMinuteText("分")
+                .setCyclic(false)//是否循环
+                .setMinMillseconds(minMillseconds)//最小可选时间（单位毫秒）
+                .setMaxMillseconds(MaxMillseconds)//最大可选时间（单位毫秒）
+                .setCurrentMillseconds(System.currentTimeMillis())//当前时间（单位毫秒）
+                .setThemeColor(context.getResources().getColor(R.color.login_text_blue))
+                .setType(Type.ALL)
+                .setWheelItemTextNormalColor(context.getResources().getColor(R.color.timetimepicker_default_text_color))
+                .setWheelItemTextSelectorColor(context.getResources().getColor(R.color.timepicker_toolbar_bg))
+                .setWheelItemTextSize(12)
+                .build();
+    }
 
     /**
      * 获取当前时间
@@ -294,15 +372,35 @@ public class TimeUtils {
     }
 
     /**
+     * 返回时间戳
+     *
+     * @param time
+     * @return
+     */
+    public static long dataTwo(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                Locale.CHINA);
+        Date date;
+        long l = 0;
+        try {
+            date = sdr.parse(time);
+            l = date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
+    /**
      * 比较两个时间
      *
      * @param starTime  开始时间
      * @param endString 结束时间
      * @return 结束时间大于开始时间返回true，否则反之֮
      */
-    public boolean compareTwoTime(String starTime, String endString) {
+    public static boolean compareTwoTime(String starTime, String endString) {
         boolean isDayu = false;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try {
             Date parse = dateFormat.parse(starTime);
@@ -319,8 +417,30 @@ public class TimeUtils {
             e.printStackTrace();
         }
         return isDayu;
-
     }
+
+    /**
+     * 验证起止时间的合法性
+     * 1.截止时间必须大于起始时间
+     * 2起止时间与截止时间之间不得超过3天
+     * @param startTime   起始时间
+     * @param endTime   截止时间
+     * @return
+     */
+    public static boolean verificationTime(String startTime,String endTime){
+        if(!compareTwoTime(startTime,endTime)){
+            RxToast.info("截止时间不得小于起始时间");
+            return false;
+        }
+         long threeDays = 3* 1000 * 60 * 60 * 24L;
+        if(dataTwo(endTime)-dataTwo(startTime)>threeDays){
+            RxToast.info("查询时间不得多于3天");
+            return false;
+        }
+        return true;
+    }
+
+
 
     public boolean compareTwoTime2(String starTime, String endString) {
         boolean isDayu = false;
@@ -425,6 +545,8 @@ public class TimeUtils {
         long day = (date2.getTime() - date1.getTime()) / (24L * 60L * 60L * 1000L);
         return day;
     }
+
+
 
     /**
      * 计算还款天数
